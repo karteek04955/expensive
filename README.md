@@ -51,7 +51,19 @@ Visit **http://localhost:5000/api/health** in a browser, or run:
 curl http://localhost:5000/api/expenses
 ```
 
-## 3. Run the Frontend
+## 2b. Run Both Backend & Frontend Together (one command)
+
+From the **root** `expense-tracker/` folder (not `backend/`):
+
+```bash
+npm run install:all   # one-time setup, installs backend deps
+npm run dev            # starts backend (5000) + frontend (5500) together
+```
+
+Then open **http://localhost:5500** in your browser. Press `Ctrl+C` in the
+terminal to stop both at once.
+
+## 3. Run the Frontend (manually, alternative to step 2b)
 
 You don't need a build step — just open the file, or (better) use Live Server so
 `fetch()` calls work smoothly:
@@ -66,7 +78,22 @@ You don't need a build step — just open the file, or (better) use Live Server 
 Either way, as long as the backend is running on port 5000, the app will load your
 data, show totals, and let you add/edit/delete transactions.
 
-## 4. API Reference
+## 4. New Features
+
+### Set Monthly Income
+On the dashboard, use the **Monthly Income** box to save your income. It's
+stored on the backend (in `expenses.json` under `settings`) and used to
+calculate a **Remaining Budget** card: `Monthly Income − Total Expenses`.
+Turns red if you've gone over budget.
+
+### Export to Excel
+Click **⬇ Export to Excel** above the transaction table to download all your
+visible transactions (respects any active search/type filter) as a real
+`.xlsx` file — Date, Title, Category, Type, Amount, Notes columns. This runs
+entirely in the browser using [SheetJS](https://sheetjs.com), no backend
+involved, so it works even offline once the page is loaded.
+
+## 5. API Reference
 
 Base URL: `http://localhost:5000/api/expenses`
 
@@ -96,7 +123,7 @@ Base URL: `http://localhost:5000/api/expenses`
 `title`, `amount`, and `date` are required. `type` defaults to `"expense"`,
 `category` defaults to `"General"`.
 
-## 5. Troubleshooting
+## 6. Troubleshooting
 
 - **"Could not reach the backend" alert in the browser** → make sure
   `npm start` is running in `backend/` and nothing else is using port 5000.
@@ -105,7 +132,7 @@ Base URL: `http://localhost:5000/api/expenses`
 - **Change the port** → set an environment variable before starting:
   `PORT=6000 npm start`, and update `API_BASE` in `frontend/app.js` to match.
 
-## 6. Notes on the "AI Triad" Prompt Pipeline
+## 7. Notes on the "AI Triad" Prompt Pipeline
 
 This project maps to the 5-stage pipeline from your mini-project brief:
 

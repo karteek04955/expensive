@@ -1,0 +1,12 @@
+{
+  "name": "expense-tracker-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runs backend API and frontend static server together",
+  "scripts": {
+    "install:all": "npm install --prefix backend",
+    "backend": "npm start --prefix backend",
+    "frontend": "npx --yes serve frontend -l 5500",
+    "dev": "npx --yes concurrently -n BACKEND,FRONTEND -c green,cyan \"npm run backend\" \"npm run frontend\""
+  }
+}
